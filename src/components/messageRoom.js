@@ -89,7 +89,7 @@ const MessageRoom = ({ groupId }) => {
                 {messages?.length > 0 ? (
                     messages.map((msg) => (
                         <div className='container-user-body' key={msg.id_msg}>
-                            <div className='message-user'>{msg.user}:</div>
+                            <div className='message-user'>{msg.username}:</div>
                             <div className='message-body'>{msg.msg_body}</div>
                         </div>
                     ))

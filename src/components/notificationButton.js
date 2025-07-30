@@ -59,7 +59,7 @@ const NotificationButton = () =>{
           <div key={notification.id_invitation} className="notification-card">
             <ul className="notification-info">
               <li>
-                El usuario <strong>{notification.user}</strong> te ha invitado al grupo <strong>{notification.group_name}</strong>
+                El usuario <strong>{notification.username}</strong> te ha invitado al grupo <strong>{notification.group_name}</strong>
                 <button className="button-submit normal" onClick={() => handleAccept(notification.id_group)}>Accepted</button>
                 <button className="button-submit delete" onClick={() => handleReject(notification.id_group)}>Decline</button>
               </li>

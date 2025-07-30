@@ -1,10 +1,9 @@
 import axios from 'axios';
-import { config as configDotenv } from 'dotenv';
-
-configDotenv();
+import API from "../config/config.js";
 
 export const createUser =  async (address_mail)=> {
     try{
+        console.log(`${API}/create`);
         const response = await axios.post(`${API}/create`, address_mail)
         return response.data;
     }catch(error){

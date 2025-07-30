@@ -1,8 +1,5 @@
 import axios  from 'axios';
-import { config as configDotenv } from 'dotenv';
-
-configDotenv();
-
+import API from "../config/config.js";
 
 export const getUser = async()=> {
     try{

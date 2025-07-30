@@ -2,11 +2,12 @@ import React, {useState} from 'react';
 import { createUser, loggearUser } from '../services/servicesLogin.js';
 import { useNavigate } from 'react-router-dom';
 import { Toast } from './toast.js';
+
 const Logger = () =>{
 
     const [newUser, setNewUser] = useState({
         address_mail:'',
-        user:'', 
+        username:'', 
         password:''
     });
     const [newUserLogin, setNewUserLogin] = useState({
@@ -25,7 +26,7 @@ const Logger = () =>{
 
             setNewUser({
                 address_mail:'',
-                user:'', 
+                username:'', 
                 password:''
             })
         }catch(error){
@@ -63,8 +64,8 @@ const Logger = () =>{
                         <input  
                             placeholder='Username'
                             type ="Text"
-                            value={newUser.user}
-                            onChange={(e) => setNewUser({ ...newUser, user: e.target.value })}
+                            value={newUser.username}
+                            onChange={(e) => setNewUser({ ...newUser, username: e.target.value })}
                         />
                         <input 
                             placeholder='Password'

@@ -1,9 +1,5 @@
 import axios from "axios";
-import { config as configDotenv } from 'dotenv';
-
-configDotenv();
-
-const API_URL = "http://localhost:3000/user/creategroup";
+import API from "../config/config.js";
 
 export const createGroup = async (groupData) => {
   const formData = new FormData();

@@ -60,7 +60,7 @@ const MemberGroups = ({ groupID }) => {
           {getmembers?.map((member) => (
             <div key={member.id_member} className="member-card">
               <ul className="member-info">
-                <li><strong>Usuario:</strong> {member.user}</li>
+                <li><strong>Usuario:</strong> {member.username}</li>
                 <li><strong>Email:</strong> {member.address_mail}</li>
                 <li>
                   <strong>Rol:</strong>
