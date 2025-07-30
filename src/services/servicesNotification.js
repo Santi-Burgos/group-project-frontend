@@ -1,10 +1,11 @@
 import axios from "axios";
+import { config as configDotenv } from 'dotenv';
 
-const API_URL_NOTIFICATION = 'http://localhost:3000/user/notification'
+configDotenv();
 
 export const notification = async () =>{
     try{
-        const response = await axios.get(API_URL_NOTIFICATION, {withCredentials: true});
+        const response = await axios.get(`${API}/notificaction`, {withCredentials: true});
         console.log('Datos recibidos:', response.data)
         return response.data
     } catch (error){
@@ -22,7 +23,7 @@ export const notification = async () =>{
 
 export const sendInvitation = async({groupID, address_mail})=>{
     try{
-        const response = await axios.post('http://localhost:3000/user/main',
+        const response = await axios.post(`${API}/main`,
             {groupID,
             address_mail},
            {withCredentials: true
@@ -47,7 +48,7 @@ export const sendInvitation = async({groupID, address_mail})=>{
 
 export const acceptedNotification = async(groupID)=>{
     try{
-        const response = await axios.post(API_URL_NOTIFICATION,
+        const response = await axios.post(`${API}/notificaction`,
             {groupID},
             {withCredentials: true});
         return response
@@ -66,7 +67,7 @@ export const acceptedNotification = async(groupID)=>{
 
 export const declineNotification = async(groupID)=>{
     try{
-        const response = await axios.delete(API_URL_NOTIFICATION,
+        const response = await axios.delete(`${API}/notificaction`,
             {
                 data: { groupID },
                 withCredentials: true

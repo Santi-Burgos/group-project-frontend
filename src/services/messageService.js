@@ -1,10 +1,13 @@
 import axios from "axios";
+import { config as configDotenv } from 'dotenv';
+
+configDotenv();
 
 const API_URL = "http://localhost:3000/user/msg-group"
 
 export const getMessages = async (groupId)=>{
         try {
-            const response = await axios.get(`${API_URL}?groupID=${groupId}`, { 
+            const response = await axios.get(`${API}/msg-group?groupID=${groupId}`, { 
                 withCredentials: true,
                 headers: { 'Content-Type': 'application/json' }
             });
@@ -17,7 +20,7 @@ export const getMessages = async (groupId)=>{
 
 export const sendMessage = async(groupID, msg_body)=>{
     try{ 
-        const response = await axios.post(API_URL, { groupID, msg_body },
+        const response = await axios.post(`${API}/msg-group`, { groupID, msg_body },
              { 
                 withCredentials: true,
                 headers: { 'Content-Type': 'application/json' }});

@@ -1,10 +1,11 @@
 import axios from "axios";
+import { config as configDotenv } from 'dotenv';
 
-const API_URL_QUIT_GROUP = 'http://localhost:3000/user/main';
+configDotenv();
 
 export const userQuitGroup = async (groupID) =>{
     try{
-        const response = await axios.delete(API_URL_QUIT_GROUP, {
+        const response = await axios.delete(`${API}/main`, {
             data: {groupID}, 
             withCredentials: true
     });

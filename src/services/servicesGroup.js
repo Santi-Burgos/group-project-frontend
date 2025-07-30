@@ -1,4 +1,7 @@
 import axios from "axios";
+import { config as configDotenv } from 'dotenv';
+
+configDotenv();
 
 const API_URL = "http://localhost:3000/user/creategroup";
 
@@ -14,7 +17,7 @@ export const createGroup = async (groupData) => {
   }
 
   try {
-    const response = await axios.post(API_URL, formData, {
+    const response = await axios.post(`${API}/creategroup`, formData, {
       withCredentials: true, 
       headers: {
         "Content-Type": "multipart/form-data", 

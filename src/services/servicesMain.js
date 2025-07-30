@@ -1,10 +1,11 @@
 import axios from 'axios';
+import { config as configDotenv } from 'dotenv';
 
-const API_URL_MAIN = 'http://localhost:3000/user/main';
+configDotenv();
 
 export const main = async () => {
     try {
-        const response = await axios.get(API_URL_MAIN, { withCredentials: true });
+        const response = await axios.get(`${API}/main`, { withCredentials: true });
         console.log('Datos recibidos:', response.data);
         if (!response.data) {
             return null; 

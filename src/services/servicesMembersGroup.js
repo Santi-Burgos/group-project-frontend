@@ -1,10 +1,11 @@
 import axios from "axios";
+import { config as configDotenv } from 'dotenv';
 
-const API_URL_GROUPMEMBER = 'http://localhost:3000/user/group/members';
+configDotenv();
 
 export const getMembers  = async(groupID)=>{
     try{
-        const response = await axios.get(`${API_URL_GROUPMEMBER}?groupID=${groupID}`,{
+        const response = await axios.get(`${API}/group/members?groupID=${groupID}`,{
             withCredentials: true});
         return response;
     }catch(error){
@@ -22,7 +23,7 @@ export const getMembers  = async(groupID)=>{
 
 export const deleteMember = async(groupID, userID) =>{
     try{
-        const response = await axios.delete(API_URL_GROUPMEMBER, {
+        const response = await axios.delete(`${API}/group/members`, {
             withCredentials: true,
             data: {
               groupID,
@@ -47,7 +48,7 @@ export const deleteMember = async(groupID, userID) =>{
 export const editRolMember = async(userID, groupID, id_rol) =>{
     try{
         const response = await axios.put(
-            API_URL_GROUPMEMBER,
+            `${API}/group/members`,
             {
               groupID,
               editMember: userID,

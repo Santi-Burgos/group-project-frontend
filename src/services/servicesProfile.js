@@ -1,10 +1,12 @@
 import axios  from 'axios';
+import { config as configDotenv } from 'dotenv';
 
-const API_URL_PROFILEUSER = 'http://localhost:3000/user/profile ';
+configDotenv();
+
 
 export const getUser = async()=> {
     try{
-        const response = await axios.get(API_URL_PROFILEUSER,{
+        const response = await axios.get(`${API}/profile`,{
             withCredentials: true
         });
         return response
@@ -23,7 +25,7 @@ export const getUser = async()=> {
 
 export const editUser = async(address_mail, user, password, currentPassword) => {
     try {
-        const response = await axios.put(API_URL_PROFILEUSER, {
+        const response = await axios.put(`${API}/profile`, {
             address_mail, 
             user, 
             password,
@@ -51,7 +53,7 @@ export const editUser = async(address_mail, user, password, currentPassword) => 
 
 export const userDelete = async(currentPassword) =>{
     try{
-        const response = await axios.delete(API_URL_PROFILEUSER, {
+        const response = await axios.delete(`${API}/profile`, {
             withCredentials: true,
             data: {
                 currentPassword

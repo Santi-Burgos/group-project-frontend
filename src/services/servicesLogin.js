@@ -1,11 +1,11 @@
 import axios from 'axios';
+import { config as configDotenv } from 'dotenv';
 
-const API_URL_CREATE = 'http://localhost:3000/user/create'
-const API_URL_LOGIN = 'http://localhost:3000/user/login'
+configDotenv();
 
 export const createUser =  async (address_mail)=> {
     try{
-        const response = await axios.post(`${API_URL_CREATE}`, address_mail)
+        const response = await axios.post(`${API}/create`, address_mail)
         return response.data;
     }catch(error){
         console.log('Error al crear el usuario', error);
@@ -14,7 +14,7 @@ export const createUser =  async (address_mail)=> {
 }
 export const loggearUser = async (address_mail) =>{
     try{
-        const response = await axios.post(`${API_URL_LOGIN}`, address_mail,
+        const response = await axios.post(`${API}/login`, address_mail,
             {withCredentials: true})
         return response.data
     }catch(error){
