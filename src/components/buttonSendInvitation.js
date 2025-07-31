@@ -8,7 +8,7 @@ const InviteButton = ({ groupID }) => {
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
     const [toast, setToast] = useState(null)
-    const [message, setMessage] = useState('');
+    const [_, setMessage] = useState('');
 
     const handleSendInvitation = async () => {
         if (!email) {

@@ -6,8 +6,8 @@ import { savePersistentToast, loadPersistentToast } from "../utils/showPersisten
 import { VscAccount } from "react-icons/vsc";
 
 
-const ProfileComponent = ({}) =>{
-    const [takeUser, setTakeUser] = useState([]);
+const ProfileComponent = () =>{
+    const [_, setTakeUser] = useState([]);
     const [showProfile, setShowProfile] = useState(false);
     const [loading, setLoading] = useState(false);
     const [editProfile, setEditProfile] = useState({
