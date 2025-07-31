@@ -20,7 +20,7 @@ const ProtectedRoute = ({ children }) => {
 
         setTimeout(() => {
           navigate('/');
-        }, 3000); // redirige tras 3 segundos
+        }, 3000); 
       }
     };
 

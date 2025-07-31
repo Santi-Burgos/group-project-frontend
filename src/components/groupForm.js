@@ -44,7 +44,7 @@ const CreateGroup = ({ onCreate }) => {
       savePersistentToast({ message: '✅ Haz creado un grupo con éxito.', type: 'success' });
       window.location.reload();
       setNewGroup({ group_name: "", group_description: "", address_mail: "", group_img: null });
-      if (onCreate) onCreate(); // Llamar función para actualizar la UI si es necesario
+      if (onCreate) onCreate(); 
     } catch (error) {
       setToast({message: '❌ No has podido crear el grupo.', type: 'error'})
     } finally {
