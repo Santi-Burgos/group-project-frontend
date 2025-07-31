@@ -102,8 +102,6 @@ const Logger = () =>{
                 onClose={() => setToast(null)}
                 />
             )}
-
-            <p>TE AMO IRINA</p>
         </div>
     )
 }
