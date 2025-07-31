@@ -7,7 +7,7 @@ import { VscAccount } from "react-icons/vsc";
 
 
 const ProfileComponent = () =>{
-    const [_, setTakeUser] = useState([]);
+    const [, setTakeUser] = useState([]);
     const [showProfile, setShowProfile] = useState(false);
     const [loading, setLoading] = useState(false);
     const [editProfile, setEditProfile] = useState({
