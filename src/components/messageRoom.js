@@ -3,7 +3,7 @@ import { getMessages} from '../services/messageService';
 import InviteButton from './buttonSendInvitation.js';
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:3000', {
+const socket = io('https://chatgrupal.netlify.app', {
     withCredentials: true
 });
 
