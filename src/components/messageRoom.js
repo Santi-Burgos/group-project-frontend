@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
 import { getMessages} from '../services/messageService';
 import InviteButton from './buttonSendInvitation.js';
+import getAuthHeaders from '../utils/tokenInLs.js'
 import { io } from 'socket.io-client';
 
 const socket = io('https://group-projec.onrender.com', {
-    withCredentials: true
+    withCredentials: true,
+    headers: { 
+                ...getAuthHeaders()
+            }
 });
 
 const MessageRoom = ({ groupId }) => {
