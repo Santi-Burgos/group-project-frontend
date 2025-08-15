@@ -17,6 +17,8 @@ export const loggearUser = async (address_mail) =>{
             {
                 withCredentials: true
             })
+            console.log(response)
+        localStorage.setItem('access_token', response.data.access_token);
         return response.data
     }catch(error){
         console.log('Error al loggear el usuario', error.response?.data || error.message);
