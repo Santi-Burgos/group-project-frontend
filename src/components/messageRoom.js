@@ -1,32 +1,31 @@
-import { useEffect, useState } from 'react';
-import { getMessages} from '../services/messageService';
+import { useEffect, useState, useRef } from 'react';
+import { getMessages } from '../services/messageService';
 import InviteButton from './buttonSendInvitation.js';
-import getAuthHeaders from '../utils/tokenInLs.js'
+import getAuthHeaders from '../utils/tokenInLs.js';
 import { io } from 'socket.io-client';
-
 
 const MessageRoom = ({ groupId }) => {
     const [messages, setMessages] = useState([]);
     const [msg_body, setNewBodyMessage] = useState("");
+    const socketRef = useRef(null);
 
     useEffect(() => {
-
         if (!groupId) return;
 
         const socket = io('https://group-projec.onrender.com', {
             withCredentials: true,
-            transports: ['polling', 'websocket'], // fallback mobile-proof
-            extraHeaders: getAuthHeaders(), 
+            transports: ['polling', 'websocket'],
+            extraHeaders: getAuthHeaders(),
+            reconnection: true,      
+            reconnectionAttempts: 5,  
+            reconnectionDelay: 1000,  
         });
-    
-        socket.on('connect', () => {
-            console.log('🔗 WebSocket conectado');
-        });
-        
-        socket.on('connect_error', (err) => {
-            console.error('Error de conexión:', err);
-        });
-    
+
+        socketRef.current = socket;
+
+        socket.on('connect', () => console.log('🔗 WebSocket conectado'));
+        socket.on('connect_error', (err) => console.error('Error de conexión:', err));
+
         const fetchMessages = async () => {
             try {
                 const data = await getMessages(groupId);
@@ -35,39 +34,25 @@ const MessageRoom = ({ groupId }) => {
                 console.error("Error al obtener mensajes:", error);
             }
         };
-    
+
         fetchMessages();
+
         socket.emit("joinRoom", groupId);
-        const handleReceiveMessage = (newMessages) => {
-            console.log("🔄 Mensajes actualizados recibidos:", newMessages); 
-            setMessages(newMessages);
-        };
-    
+
+        const handleReceiveMessage = (newMessages) => setMessages(newMessages);
         socket.on("receiveMessage", handleReceiveMessage);
-    
+
         return () => {
-            socket.off("receiveMessage", handleReceiveMessage);
             socket.emit("leaveRoom", groupId);
+            socket.off("receiveMessage", handleReceiveMessage);
             socket.disconnect();
         };
-    }, [groupId]);;
-    
-    
-    
-    
-    const handleSendMessage = async () => {
+    }, [groupId]);
+
+    const handleSendMessage = () => {
         if (msg_body.trim() === "") return;
-    
-        try {
-            socket.emit("sendMessage", { 
-                groupID: groupId, 
-                msg_body 
-            });
-    
-            setNewBodyMessage("");
-        } catch (error) {
-            console.error("Error al enviar mensaje:", error);
-        }
+        socketRef.current?.emit("sendMessage", { groupID: groupId, msg_body });
+        setNewBodyMessage("");
     };
     
 
