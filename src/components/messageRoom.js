@@ -4,12 +4,6 @@ import InviteButton from './buttonSendInvitation.js';
 import getAuthHeaders from '../utils/tokenInLs.js'
 import { io } from 'socket.io-client';
 
-const socket = io('https://group-projec.onrender.com', {
-    withCredentials: true,
-    headers: { 
-                ...getAuthHeaders()
-            }
-});
 
 const MessageRoom = ({ groupId }) => {
     const [messages, setMessages] = useState([]);
@@ -18,6 +12,12 @@ const MessageRoom = ({ groupId }) => {
     useEffect(() => {
 
         if (!groupId) return;
+
+        const socket = io('https://group-projec.onrender.com', {
+            withCredentials: true,
+            transports: ['polling', 'websocket'], // fallback mobile-proof
+            extraHeaders: getAuthHeaders(), 
+        });
     
         socket.on('connect', () => {
             console.log('🔗 WebSocket conectado');
@@ -48,6 +48,7 @@ const MessageRoom = ({ groupId }) => {
         return () => {
             socket.off("receiveMessage", handleReceiveMessage);
             socket.emit("leaveRoom", groupId);
+            socket.disconnect();
         };
     }, [groupId]);;
     
