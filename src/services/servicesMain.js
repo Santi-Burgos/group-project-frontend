@@ -1,9 +1,15 @@
 import axios from 'axios';
 import API from "../config/config.js";
+import getAuthHeaders from '../utils/tokenInLs.js';
 
 export const main = async () => {
     try {
-        const response = await axios.get(`${API}/main`, { withCredentials: true });
+        const response = await axios.get(`${API}/main`, { 
+            withCredentials: true,
+            headers: {
+                ...getAuthHeaders()
+            }
+        });
         console.log('Datos recibidos:', response.data);
         if (!response.data) {
             return null; 

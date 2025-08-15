@@ -1,11 +1,15 @@
 import axios from "axios";
 import API from "../config/config.js";
+import getAuthHeaders from '../utils/tokenInLs.js';
 
 export const userQuitGroup = async (groupID) =>{
     try{
         const response = await axios.delete(`${API}/main`, {
             data: {groupID}, 
-            withCredentials: true
+            withCredentials: true,
+            headers: {
+                ...getAuthHeaders()
+            }
     });
     return response;
     }catch(error){

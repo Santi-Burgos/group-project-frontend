@@ -1,10 +1,16 @@
 import axios from "axios";
 import API from "../config/config.js";
+import getAuthHeaders from "../utils/tokenInLs.js";
 
 export const getMembers  = async(groupID)=>{
     try{
-        const response = await axios.get(`${API}/group/members?groupID=${groupID}`,{
-            withCredentials: true});
+        const response = await axios.get(`${API}/group/members?groupID=${groupID}`,
+          {
+            withCredentials: true,
+            headers: {
+                ...getAuthHeaders()
+            }
+        });
         return response;
     }catch(error){
         if (error.response) {
@@ -23,6 +29,9 @@ export const deleteMember = async(groupID, userID) =>{
     try{
         const response = await axios.delete(`${API}/group/members`, {
             withCredentials: true,
+            headers: {
+                ...getAuthHeaders()
+            },
             data: {
               groupID,
               memberDelete: userID, 
@@ -54,6 +63,9 @@ export const editRolMember = async(userID, groupID, id_rol) =>{
             },
             {
               withCredentials: true,
+              headers: {
+                ...getAuthHeaders()
+              }
             }
           );
           return response;

@@ -1,10 +1,14 @@
 import axios  from 'axios';
 import API from "../config/config.js";
+import getAuthHeaders from '../utils/tokenInLs.js';
 
 export const getUser = async()=> {
     try{
         const response = await axios.get(`${API}/profile`,{
-            withCredentials: true
+            withCredentials: true,
+            headers: {
+                ...getAuthHeaders()
+            }
         });
         return response
     }catch(error){
@@ -28,7 +32,10 @@ export const editUser = async(address_mail, user, password, currentPassword) => 
             password,
             currentPassword
         }, {
-            withCredentials: true
+            withCredentials: true,
+            headers: {
+                ...getAuthHeaders()
+            }
         });
         return {
             success: true,
@@ -52,6 +59,9 @@ export const userDelete = async(currentPassword) =>{
     try{
         const response = await axios.delete(`${API}/profile`, {
             withCredentials: true,
+            headers: {
+                ...getAuthHeaders()
+            },
             data: {
                 currentPassword
             }

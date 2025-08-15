@@ -1,10 +1,15 @@
 import axios from "axios";
 import API from "../config/config.js";
-
+import getAuthHeaders from '../utils/tokenInLs.js';
 
 export const notification = async () =>{
     try{
-        const response = await axios.get(`${API}/notification`, {withCredentials: true});
+        const response = await axios.get(`${API}/notification`, {
+            withCredentials: true,
+            headers: {
+                ...getAuthHeaders()
+            }
+        });
         console.log('Datos recibidos:', response.data)
         return response.data
     } catch (error){
@@ -25,7 +30,11 @@ export const sendInvitation = async({groupID, address_mail})=>{
         const response = await axios.post(`${API}/main`,
             {groupID,
             address_mail},
-           {withCredentials: true
+           {
+            withCredentials: true,
+            headers: {
+                ...getAuthHeaders()
+            }
         });
         return {
             success: true,
@@ -49,7 +58,12 @@ export const acceptedNotification = async(groupID)=>{
     try{
         const response = await axios.post(`${API}/notification`,
             {groupID},
-            {withCredentials: true});
+            {
+                withCredentials: true,
+                headers: {
+                ...getAuthHeaders()
+                }
+            });
         return response
     } catch(error){
         if (error.response) {
@@ -69,7 +83,10 @@ export const declineNotification = async(groupID)=>{
         const response = await axios.delete(`${API}/notification`,
             {
                 data: { groupID },
-                withCredentials: true
+                withCredentials: true,
+                headers: {
+                ...getAuthHeaders()
+                }
             });
         return response
     }catch(error){

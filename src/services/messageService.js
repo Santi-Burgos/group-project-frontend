@@ -1,11 +1,15 @@
 import axios from "axios";
 import API from "../config/config.js";
+import getAuthHeaders from '../utils/tokenInLs.js'
 
 export const getMessages = async (groupId)=>{
         try {
             const response = await axios.get(`${API}/msg-group?groupID=${groupId}`, { 
                 withCredentials: true,
-                headers: { 'Content-Type': 'application/json' }
+                headers: { 
+                    'Content-Type': 'application/json',
+                    ...getAuthHeaders()
+                 }
             });
             return response.data;
         } catch (error) {
@@ -19,7 +23,10 @@ export const sendMessage = async(groupID, msg_body)=>{
         const response = await axios.post(`${API}/msg-group`, { groupID, msg_body },
              { 
                 withCredentials: true,
-                headers: { 'Content-Type': 'application/json' }});
+                headers: { 
+                    'Content-Type': 'application/json',
+                    ...getAuthHeaders()
+                }});
         return response
     } catch(error){
         if (error.response) {
