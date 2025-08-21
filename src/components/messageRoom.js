@@ -54,8 +54,6 @@ const MessageRoom = ({ groupId }) => {
         socketRef.current?.emit("sendMessage", { groupID: groupId, msg_body });
         setNewBodyMessage("");
     };
-    
-
 
     return (
         <div className='message-room'>
@@ -76,7 +74,7 @@ const MessageRoom = ({ groupId }) => {
                     <InviteButton groupID={groupId} />
                 </div>
 
-                {messages?.length > 0 ? (
+                {messages?.length !== 0 ? (
                     messages.map((msg) => (
                         <div className='container-user-body' key={msg.id_msg}>
                             <div className='message-user'>{msg.username}:</div>

@@ -1,9 +1,12 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import { createUser, loggearUser } from '../services/servicesLogin.js';
 import { useNavigate } from 'react-router-dom';
 import { Toast } from './toast.js';
+import { FaArrowRightLong } from "react-icons/fa6";
+
 
 const Logger = () =>{
+    const navigate = useNavigate('');
 
     const [newUser, setNewUser] = useState({
         address_mail:'',
@@ -15,7 +18,11 @@ const Logger = () =>{
         password:''})
 
     const [toast, setToast] = useState(null);
-    const navigate = useNavigate('');
+    const [view, setView] = useState(false);
+
+    const changeView = () =>{
+        setView(!view);
+    }
 
     const handleCreateUser = async() =>{
         try{
@@ -51,50 +58,74 @@ const Logger = () =>{
 
     return(
         <div className='body'>
-            <div
-            className='contenedor-login'>
-                <div className='card-login'>
-                        <div className='login-title'>Registrarse</div>
-                        <input  
+            {(!view) ? 
+            <div className='container'> 
+                <div className='contenedor-login'>
+                    <h1>Chatgrupal</h1>
+                    <button onClick={changeView} className='button-login'>
+                        <span>
+                            Ya tienes cuenta?
+                        </span>
+                    </button>
+                    <div className='card-login'>
+                            <div className='login-title'>
+                                <h2>Registrarse</h2>
+                            </div>
+                            <input  
+                                placeholder='Email'
+                                type ="Text"
+                                value={newUser.address_mail}
+                                onChange={(e) => setNewUser({ ...newUser, address_mail: e.target.value })}
+                            />
+                            <input  
+                                placeholder='Username'
+                                type ="Text"
+                                value={newUser.username}
+                                onChange={(e) => setNewUser({ ...newUser, username: e.target.value })}
+                            />
+                            <span className='clarification'>El usuario debe tener al menos 5 caracteres</span>
+                            <input 
+                                placeholder='Password'
+                                type='Password'
+                                value ={newUser.password}
+                                onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
+                            />
+                            <button className='button'onClick={handleCreateUser}>
+                                <span className='button-content'>Crear Usuario <FaArrowRightLong/></span>
+                            </button>
+                    </div>
+                </div>
+            </div> : 
+            <div className='container'>
+                <div className='contenedor-login'>
+                    <h1>Chatgrupal</h1>
+                    <button onClick={changeView} className='button-login'>
+                        <span>
+                            No tienes cuenta?
+                        </span>
+                    </button>
+                    <div className='card-login'>
+                        <div className='login-title'>
+                            <h2>Login</h2>
+                        </div>
+                        <input
                             placeholder='Email'
                             type ="Text"
-                            value={newUser.address_mail}
-                            onChange={(e) => setNewUser({ ...newUser, address_mail: e.target.value })}
+                            value={newUserLogin.address_mail}
+                            onChange={(e) => setNewUserLogin({ ...newUserLogin, address_mail: e.target.value })}
                         />
-                        <input  
-                            placeholder='Username'
-                            type ="Text"
-                            value={newUser.username}
-                            onChange={(e) => setNewUser({ ...newUser, username: e.target.value })}
-                        />
-                        <input 
+                        <input
                             placeholder='Password'
-                            type='Password'
-                            value ={newUser.password}
-                            onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
+                            type ="Password"
+                            value={newUserLogin.password}
+                            onChange={(e) => setNewUserLogin({ ...newUserLogin, password: e.target.value })}
                         />
-                        <button onClick={handleCreateUser}>Crear Usuario</button>
+                        <button className='button' onClick={handleLoggin}> 
+                            <span className='button-content'>Iniciar Sesion <FaArrowRightLong/></span></button>
+                    </div>
                 </div>
-            </div>
-            <div 
-            className='contenedor-login'>
-                <div className='card-login'>
-                    <div className='login-title'>Loggearse</div>
-                    <input
-                        placeholder='Email'
-                        type ="Text"
-                        value={newUserLogin.address_mail}
-                        onChange={(e) => setNewUserLogin({ ...newUserLogin, address_mail: e.target.value })}
-                    />
-                    <input
-                        placeholder='Password'
-                        type ="Password"
-                        value={newUserLogin.password}
-                        onChange={(e) => setNewUserLogin({ ...newUserLogin, password: e.target.value })}
-                    />
-                    <button onClick={handleLoggin}> Iniciar Sesion </button>
-                </div>
-            </div>
+            </div> 
+            }
             {toast && (
                 <Toast
                 message={toast.message}
