@@ -35,7 +35,7 @@ const InviteButton = ({ groupID }) => {
 
     return (
         <div className='invite-wrapper'>
-            <button className="iconsShowForm" onClick={() => setShowInput(!showInput)}>
+            <button className="iconsShowForm btn-msg-room" onClick={() => setShowInput(!showInput)}>
                 {showInput ? <BsEnvelopeX /> : <BsEnvelopePlus />}
             </button>
 

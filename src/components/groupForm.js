@@ -54,45 +54,47 @@ const CreateGroup = ({ onCreate }) => {
 
   return (
     <div>
-      <button id="form-create-group" onClick={handleClick} className="iconsShowForm">
+      <button id="form-create-group" onClick={handleClick} className="iconsShowForm btn-main">
         {showForm ? "-" : "+"}
       </button>
       {showForm && (
-        <div className="form-create-group">
-          <form onSubmit={handleCreateGroup} encType="multipart/form-data">
-            <input
-              type="text"
-              placeholder="Nombre del grupo"
-              value={newGroup.group_name}
-              onChange={(e) => setNewGroup({ ...newGroup, group_name: e.target.value || '' })}
-              required
-            />
-
-            <textarea
-              placeholder="Descripción del grupo"
-              value={newGroup.group_description}
-              onChange={(e) => setNewGroup({ ...newGroup, group_description: e.target.value || '' })}
-              required
-            />
-            <input 
-              type="email"
-              placeholder="Correo del invitado"
-              value={newGroup.address_mail || ''}  // Asegúrate de que nunca sea undefined
-              onChange={(e) => setNewGroup({ ...newGroup, address_mail: e.target.value || '' })}
-            />
-            <input type="file" accept="image/*" name="group_img" onChange={handleUploadImg} />
-            {newGroup.group_img && (
-              <img
-                src={URL.createObjectURL(newGroup.group_img)}
-                alt="Preview"
-                width="100"
+        <div>
+          <div className="form-create-group">
+            <form onSubmit={handleCreateGroup} encType="multipart/form-data">
+              <input
+                type="text"
+                placeholder="Nombre del grupo"
+                value={newGroup.group_name}
+                onChange={(e) => setNewGroup({ ...newGroup, group_name: e.target.value || '' })}
+                required
               />
-            )}
 
-            <button type="submit" disabled={loading}>
-              {loading ? "Creando..." : "Crear Grupo"}
-            </button>
-          </form>
+              <textarea
+                placeholder="Descripción del grupo"
+                value={newGroup.group_description}
+                onChange={(e) => setNewGroup({ ...newGroup, group_description: e.target.value || '' })}
+                required
+              />
+              <input 
+                type="email"
+                placeholder="Correo del invitado"
+                value={newGroup.address_mail || ''}  // Asegúrate de que nunca sea undefined
+                onChange={(e) => setNewGroup({ ...newGroup, address_mail: e.target.value || '' })}
+              />
+              <input type="file" accept="image/*" name="group_img" onChange={handleUploadImg} />
+              {newGroup.group_img && (
+                <img
+                  src={URL.createObjectURL(newGroup.group_img)}
+                  alt="Preview"
+                  width="100"
+                />
+              )}
+
+              <button type="submit" disabled={loading}>
+                {loading ? "Creando..." : "Crear Grupo"}
+              </button>
+            </form>
+          </div>
         </div>
       )}
                   {toast && (

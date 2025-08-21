@@ -8,7 +8,7 @@ const SearchBar = ({ onSearch }) => {
         type="search"
         placeholder="Buscar grupo..."
         onChange={(e) => onSearch(e.target.value)}
-        className="search-input"
+        className="search-group"
       />
     </div>
   );

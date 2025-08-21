@@ -2,6 +2,8 @@ import {useEffect, useState} from 'react';
 import { notification, acceptedNotification, declineNotification } from '../services/servicesNotification';
 import { savePersistentToast, loadPersistentToast } from '../utils/showPersistentToast';
 import { Toast } from './toast';
+import { IoMdNotificationsOutline } from "react-icons/io";
+
 
 const NotificationButton = () =>{
     const [showForm, setShowFrom] = useState(false);
@@ -72,8 +74,8 @@ const NotificationButton = () =>{
       
       return (
         <div className="notifications-container">
-          <button onClick={handleClick} className="iconsShowForm">
-            {showForm ? "X" : "N"}
+          <button onClick={handleClick} className="iconsShowForm btn-main">
+            {showForm ? "X" : <IoMdNotificationsOutline/> }
           </button>
           {showForm && (
             <div className="notifications">

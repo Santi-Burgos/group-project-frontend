@@ -21,7 +21,7 @@ export const getUser = async()=> {
         } else {
             console.error('Error al configurar la solicitud:', error.message);
         }
-        }
+    }
 }
 
 export const editUser = async(address_mail, user, password, currentPassword) => {

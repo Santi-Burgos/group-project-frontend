@@ -2,9 +2,11 @@ import { useEffect, useState, useRef } from 'react';
 import { getMessages } from '../services/messageService';
 import InviteButton from './buttonSendInvitation.js';
 import getAuthHeaders from '../utils/tokenInLs.js';
+import MemberGroups from './memberGroups.js';
+import { IoIosArrowBack } from "react-icons/io";
 import { io } from 'socket.io-client';
 
-const MessageRoom = ({ groupId }) => {
+const MessageRoom = ({ groupId, onBack }) => {
     const [messages, setMessages] = useState([]);
     const [msg_body, setNewBodyMessage] = useState("");
     const socketRef = useRef(null);
@@ -12,7 +14,9 @@ const MessageRoom = ({ groupId }) => {
     useEffect(() => {
         if (!groupId) return;
 
-        const socket = io('https://group-projec.onrender.com', {
+        const socket = io(  
+            'http://localhost:3000'
+            , {
             withCredentials: true,
             transports: ['polling', 'websocket'],
             extraHeaders: getAuthHeaders(),
@@ -59,6 +63,14 @@ const MessageRoom = ({ groupId }) => {
         <div className='message-room'>
             <div className='message-container'>
                 <div className="message-room-header">
+                    <div className='button-to-back'>
+                        <button
+                            className="iconsShowForm btn-msg-room mobile-only"
+                            onClick={onBack}
+                        >
+                            <IoIosArrowBack/>
+                        </button>
+                    </div>
                     <div className="message-room-title">
                         {messages?.[0]?.url_img && (
                         <img
@@ -71,21 +83,26 @@ const MessageRoom = ({ groupId }) => {
                         {messages?.[0]?.group_name || "Nombre del grupo no disponible"}
                         </h2>
                     </div>
-                    <InviteButton groupID={groupId} />
-                </div>
-
-                {messages?.length !== 0 ? (
-                    messages.map((msg) => (
-                        <div className='container-user-body' key={msg.id_msg}>
-                            <div className='message-user'>{msg.username}:</div>
-                            <div className='message-body'>{msg.msg_body}</div>
-                        </div>
-                    ))
-                ) : (
-                    <div>
-                        <p>No hay mensajes disponibles.</p>
+                    <div id='options-group' className='options-group'>
+                        <InviteButton groupID={groupId} />    
+                        <MemberGroups groupID={groupId} />
                     </div>
-                )}
+                    </div>
+                    <div className='container-msg-room'>
+                        {messages?.length !== 0 ? (
+                            messages.map((msg) => (
+                                <div className='container-user-body' key={msg.id_msg}>
+                                    <div className='message-user'>{msg.username}:</div>
+                                    <div className='message-body'>{msg.msg_body}</div>
+                                </div>
+                            ))
+                        
+                        ) : (
+                            <div>
+                                <p>No hay mensajes disponibles.</p>
+                            </div>
+                        )}
+                </div>
             </div>
         <div className='send-form-message'>
             <input

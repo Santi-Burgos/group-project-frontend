@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { userQuitGroup } from "../services/servicesUserQuitGroup.js";
 import { Toast } from "./toast.js";
 import { savePersistentToast, loadPersistentToast } from "../utils/showPersistentToast.js";
-import { MdOutlineExitToApp } from "react-icons/md";
+import { MdDeleteForever  } from "react-icons/md";
 
 
 const QuitButton = ({ groupID }) => {
@@ -26,7 +26,7 @@ const QuitButton = ({ groupID }) => {
 
     return (
         <div>
-            <button className='iconsShowForm' onClick={handleQuitGroup}><MdOutlineExitToApp />
+            <button className='iconsShowForm btn-delete' onClick={handleQuitGroup}><MdDeleteForever  />
             </button>
             {toast && (
                 <Toast

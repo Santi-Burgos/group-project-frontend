@@ -1,19 +1,18 @@
+import { useState, useEffect } from 'react';
 import CreateGroup from './groupForm.js';
 import NotificationButton from './notificationButton.js';
 import GroupList from './groupList.js';
 import MessageRoom from './messageRoom.js';
-import MemberGroups from './memberGroups.js';
 import ProfileComponent from './profile.js';
 import SearchBar from './navbar.js';
 import { main } from '../services/servicesMain';
-import { useState, useEffect } from 'react';
 
 const Main = () => {
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [onSelectedGroup, setOnSelectedGroup] = useState(null);
-  const [visiblePanel, setVisiblePanel] = useState('groups'); // 'groups' | 'messages' | 'members'
+  const [visiblePanel, setVisiblePanel] = useState('groups');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,14 +32,17 @@ const Main = () => {
 
   const handleSelectGroup = (groupId) => {
     setOnSelectedGroup(groupId);
-    setVisiblePanel('messages'); // en móvil, ir a mensajes al seleccionar grupo
+    setVisiblePanel('messages');
+  };
+
+  const handleBackToGroups = () => {
+    setVisiblePanel('groups');
+    setOnSelectedGroup(null); 
   };
 
   return (
     <div className="main-container">
-
-      {/* PANEL GRUPOS */}
-      <div className={`conteiner-groups ${visiblePanel !== 'groups' ? 'mobile-hidden' : ''}`}>
+      <div className={`conteiner-groups ${visiblePanel === 'groups' ? '' : 'hidden'}`}>
         <div className="button-row">
           <CreateGroup />
           <NotificationButton />
@@ -54,34 +56,15 @@ const Main = () => {
         )}
       </div>
 
-      {/* PANEL MENSAJES */}
-      {onSelectedGroup && (
-        <div className={`message-room ${visiblePanel !== 'messages' ? 'mobile-hidden' : ''}`}>
-          {/* Botón volver en móvil */}
-          <button
-            className="back-button mobile-only"
-            onClick={() => setVisiblePanel('groups')}
-          >
-            ← Volver a grupos
-          </button>
-          <MessageRoom groupId={onSelectedGroup} />
-        </div>
-      )}
-
-      {/* PANEL MIEMBROS */}
-      {onSelectedGroup && (
-        <div className={`member-groups ${visiblePanel !== 'members' ? 'mobile-hidden' : ''}`}>
-          <button
-            className="back-button mobile-only"
-            onClick={() => setVisiblePanel('messages')}
-          >
-            ← Volver a mensajes
-          </button>
-          <MemberGroups groupID={onSelectedGroup} />
-        </div>
-      )}
-
-    </div>
+      <div className={`message-room ${visiblePanel === 'messages' ? '' : 'hidden'}`}>
+        {onSelectedGroup && (
+          <MessageRoom 
+            groupId={onSelectedGroup} 
+            onBack={handleBackToGroups}
+          />
+        )}
+      </div>
+  </div>
   );
 };
 

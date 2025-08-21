@@ -2,15 +2,19 @@ import { useEffect, useState } from "react";
 import { getMembers, deleteMember, editRolMember } from "../services/servicesMembersGroup";
 import { roles } from "../utils/roles";
 import { Toast} from "./toast";
+import { FaUserFriends } from "react-icons/fa";
+import { IoMdCloseCircle } from "react-icons/io";
 
-const MemberGroups = ({ groupID }) => {
+
+
+const MemberGroups = ({ groupID}) => {
   const [getmembers, setGetmembers] = useState([]);
-  const [showMembers, setShowMembers] = useState(false); // ✅ Estado para mostrar/ocultar miembros
+  const [showMembers, setShowMembers] = useState(false);
   
   const [toast, setToast] = useState(null);
 
   useEffect(() => {
-    if (!showMembers) return; // ✅ Solo trae los miembros si se clickeó el botón
+    if (!showMembers) return; 
 
     const fetchData = async () => {
       try {
@@ -49,9 +53,9 @@ const MemberGroups = ({ groupID }) => {
     <div className="member-groups-container">
       <button 
         onClick={() => setShowMembers(prev => !prev)} 
-        className="toggle-button"
+        className="iconsShowForm btn-msg-room"
       >
-        {showMembers ? 'Ocultar miembros' : 'Ver miembros'}
+        {showMembers ?  <IoMdCloseCircle/> : <FaUserFriends />}
       </button>
 
       {showMembers && (

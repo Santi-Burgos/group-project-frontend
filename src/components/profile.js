@@ -7,7 +7,7 @@ import { VscAccount } from "react-icons/vsc";
 
 
 const ProfileComponent = () =>{
-    const [, setTakeUser] = useState([]);
+    const [takeUser, setTakeUser] = useState([]);   
     const [showProfile, setShowProfile] = useState(false);
     const [loading, setLoading] = useState(false);
     const [editProfile, setEditProfile] = useState({
@@ -30,10 +30,11 @@ const ProfileComponent = () =>{
         const fetchData = async () =>{
             try{
                 const response = await getUser()
+                console.log(response)
                 setTakeUser(response.data);
                 setEditProfile({
-                    address_mail: response.data.address_mail || "",
-                    user: response.data.user || "",
+                    address_mail: "",
+                    username:  "",
                     password: "",
                     currentPassword: ""
                 });
@@ -73,11 +74,15 @@ const ProfileComponent = () =>{
 }
     return(
         <div>
-        <button id="form-create-group" onClick={handleOpenProfile} className="iconsShowForm">
-            {showProfile ? "X" : <VscAccount />}
-        </button>
+            <button id="form-create-group" onClick={handleOpenProfile} className="iconsShowForm">
+                {showProfile ? "X" : <VscAccount />}
+            </button>
         {showProfile && (
         <div className="form-create-group">
+                <div id="Profile-user">
+                    <div>Correo: {takeUser.address_mail}</div>
+                    <div>Usuario: {takeUser.username}</div>
+                </div>
             <DeleteAccountButton />
             <form onSubmit={handleEditUser}>
                 <input
@@ -91,7 +96,7 @@ const ProfileComponent = () =>{
                 <input
                     type="text"
                     placeholder="Username"
-                    value={editProfile.user}
+                    value={editProfile.username}
                     onChange={(e) =>
                     setEditProfile({ ...editProfile, user: e.target.value })
                     }
