@@ -15,7 +15,7 @@ const MessageRoom = ({ groupId, onBack }) => {
         if (!groupId) return;
 
         const socket = io(  
-            'http://localhost:3000'
+            'https://group-projec.onrender.com'
             , {
             withCredentials: true,
             transports: ['polling', 'websocket'],
