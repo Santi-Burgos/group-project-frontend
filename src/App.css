@@ -639,6 +639,15 @@ background-color: #1e90ff;
   color: #2c3e50;
 }
 
+.notMessageContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+  border-radius: 8px;
+  background: white;
+}
+
 .notification-empty {
   padding: 15px;
   background-color: #f1f1f1;

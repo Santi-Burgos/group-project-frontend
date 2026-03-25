@@ -4,16 +4,16 @@ import getAuthHeaders from '../utils/tokenInLs.js';
 
 export const main = async () => {
     try {
-        const response = await axios.get(`${API}/main`, { 
+        const response = await axios.get(`${API}/group/getGroups`, { 
             withCredentials: true,
             headers: {
                 ...getAuthHeaders()
             }
         });
         console.log('Datos recibidos:', response.data);
-        if (!response.data) {
-            return null; 
-          }
+        if(!response.data) {
+          return null; 
+        }
         return response.data;
     } catch (error) {
         if (error.response) {

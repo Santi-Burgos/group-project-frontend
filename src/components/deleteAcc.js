@@ -10,9 +10,9 @@ const DeleteAccountButton = () => {
   const [toast, setToast] = useState(null);
 
   useEffect(() => {
-          const toastData = loadPersistentToast();
-          if (toastData) setToast(toastData);
-      }, []);
+    const toastData = loadPersistentToast();
+    if (toastData) setToast(toastData);
+  }, []);
 
   const handleDelete = async () => {
     setLoading(true);

@@ -11,6 +11,8 @@ const ProtectedRoute = ({ children }) => {
     const checkAuth = async () => {
 
       const data = await main();
+      console.log('dataMain', data)
+    
       if (data) {
         setAuthorized(true);
         setLoading(false)

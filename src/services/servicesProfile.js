@@ -4,7 +4,7 @@ import getAuthHeaders from '../utils/tokenInLs.js';
 
 export const getUser = async()=> {
     try{
-        const response = await axios.get(`${API}/profile`,{
+        const response = await axios.get(`${API}/user/get`,{
             withCredentials: true,
             headers: {
                 ...getAuthHeaders()
@@ -26,7 +26,7 @@ export const getUser = async()=> {
 
 export const editUser = async(address_mail, user, password, currentPassword) => {
     try {
-        const response = await axios.put(`${API}/profile`, {
+        const response = await axios.put(`${API}/user/update`, {
             address_mail, 
             user, 
             password,
@@ -57,7 +57,7 @@ export const editUser = async(address_mail, user, password, currentPassword) => 
 
 export const userDelete = async(currentPassword) =>{
     try{
-        const response = await axios.delete(`${API}/profile`, {
+        const response = await axios.delete(`${API}/user/delete`, {
             withCredentials: true,
             headers: {
                 ...getAuthHeaders()

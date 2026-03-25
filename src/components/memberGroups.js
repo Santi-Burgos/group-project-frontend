@@ -19,9 +19,9 @@ const MemberGroups = ({ groupID}) => {
     const fetchData = async () => {
       try {
         const response = await getMembers(groupID);
-        setGetmembers(response.data);
+        setGetmembers(response.data.data);
       } catch (error) {
-        setToast({ message: '❌ No se ha podido obtener los miembros del grupo.', type: 'error' })
+        setToast({ message: 'No se ha podido obtener los miembros del grupo.', type: 'error' })
       }
     };
 
@@ -30,25 +30,25 @@ const MemberGroups = ({ groupID}) => {
   const handleDeleteMember = async (userID, groupID) => {
     try {
       await deleteMember(groupID, userID);
-      setToast({ message: '✅ Haz eliminado al miembro con exito.', type: 'success' })
+      setToast({ message: 'Haz eliminado al miembro con exito.', type: 'success' })
       setGetmembers(prev => prev.filter(m => m.id_users !== userID));
     } catch (error) {
-      setToast({ message: '❌ No se ha podido Eliminar al miembro.', type: 'error' });
+      setToast({ message: 'No se ha podido Eliminar al miembro.', type: 'error' });
     }
   };
 
   const handleEditRolMember = async (userID, groupID, id_rol) => {
     try {
       await editRolMember(userID, groupID, id_rol);
-      setToast({ message: '✅ Haz editado al miembro con exito.', type: 'success' });
+      setToast({ message: 'Haz editado al miembro con exito.', type: 'success' });
       setGetmembers(prev =>
         prev.map(m => m.id_users === userID ? { ...m, id_rol } : m)
       );
     } catch (error) {
-      setToast({ message: '❌ No se ha podido editar al miembro.', type: 'error' })
+      setToast({ message: 'No se ha podido editar al miembro.', type: 'error' })
     }
   };
-
+  console.log(getmembers)
   return (
     <div className="member-groups-container">
       <button 

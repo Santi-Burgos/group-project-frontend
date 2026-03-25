@@ -16,11 +16,11 @@ const QuitButton = ({ groupID }) => {
     const handleQuitGroup = async () => {
         try {
             await userQuitGroup(groupID);
-            savePersistentToast({ message: '✅ Has salido del grupo con éxito.', type: 'success' });
+            savePersistentToast({ message: 'Has salido del grupo con éxito.', type: 'success' });
             window.location.reload();
         } catch (error) {
             console.error("Error al salir del grupo:", error);
-            setToast({ message: '❌ No has podido salir del grupo.', type: 'error' });
+            setToast({ message: 'No has podido salir del grupo.', type: 'error' });
         }
     };
 

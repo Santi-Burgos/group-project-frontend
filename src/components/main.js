@@ -26,8 +26,11 @@ const Main = () => {
     fetchData();
   }, []);
 
-  const filteredGroups = (groups || []).filter(group =>
-    group.group_name.toLowerCase().includes(search.toLowerCase())
+
+  console.log(groups);
+
+  const filteredGroups = (groups.data || []).filter(group =>
+    group?.group_name?.toLowerCase().includes(search.toLowerCase())
   );
 
   const handleSelectGroup = (groupId) => {
