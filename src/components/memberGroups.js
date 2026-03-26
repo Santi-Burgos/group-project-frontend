@@ -1,21 +1,24 @@
 import { useEffect, useState } from "react";
 import { getMembers, deleteMember, editRolMember } from "../services/servicesMembersGroup";
 import { roles } from "../utils/roles";
-import { Toast} from "./toast";
+import { Toast } from "./toast.js";
 import { FaUserFriends } from "react-icons/fa";
-import { IoMdCloseCircle } from "react-icons/io";
+import { MdDeleteForever, MdEdit } from "react-icons/md";
+import { IoMdClose, IoMdCloseCircle } from "react-icons/io";
 
-
-
-const MemberGroups = ({ groupID}) => {
+const MemberGroups = ({ groupID, onClose }) => {
+  const getInitials = (name) => {
+    if (!name) return "?";
+    const parts = name.split(/[._\s]/);
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[1][0]).toUpperCase();
+    }
+    return name.substring(0, 2).toUpperCase();
+  };
   const [getmembers, setGetmembers] = useState([]);
-  const [showMembers, setShowMembers] = useState(false);
-  
   const [toast, setToast] = useState(null);
 
   useEffect(() => {
-    if (!showMembers) return; 
-
     const fetchData = async () => {
       try {
         const response = await getMembers(groupID);
@@ -26,7 +29,8 @@ const MemberGroups = ({ groupID}) => {
     };
 
     fetchData();
-  }, [groupID, showMembers]);
+  }, [groupID]);
+
   const handleDeleteMember = async (userID, groupID) => {
     try {
       await deleteMember(groupID, userID);
@@ -48,59 +52,74 @@ const MemberGroups = ({ groupID}) => {
       setToast({ message: 'No se ha podido editar al miembro.', type: 'error' })
     }
   };
-  console.log(getmembers)
-  return (
-    <div className="member-groups-container">
-      <button 
-        onClick={() => setShowMembers(prev => !prev)} 
-        className="iconsShowForm btn-msg-room"
-      >
-        {showMembers ?  <IoMdCloseCircle/> : <FaUserFriends />}
-      </button>
 
-      {showMembers && (
-        <div className="members-list">
-          <h2 className="members-title">Miembros del grupo</h2>
-          {getmembers?.map((member) => (
-            <div key={member.id_member} className="member-card">
-              <ul className="member-info">
-                <li><strong>Usuario:</strong> {member.username}</li>
-                <li><strong>Email:</strong> {member.address_mail}</li>
-                <li>
-                  <strong>Rol:</strong>
-                  <select
-                    value={member.id_rol}
-                    className="role-select"
-                    onChange={(e) =>
-                      handleEditRolMember(member.id_users, groupID, parseInt(e.target.value))
-                    }
-                  >
-                    {roles.map((rol) => (
-                      <option key={rol.id_rol} value={rol.id_rol}>
-                        {rol.rol_name}
-                      </option>
-                    ))}
-                  </select>
-                </li>
-                <li>
-                  <button 
-                    className="delete-button"
+  return (
+    <div className="members-list-sidebar">
+      <div className="members-sidebar-header">
+        <h2 className="members-title">Miembros del grupo</h2>
+        {onClose && (
+          <button 
+            className="sidebar-close-btn"
+            onClick={onClose}
+            title="Cerrar miembros"
+          >
+            <IoMdClose />
+          </button>
+        )}
+      </div>
+      <div className="members-cards-container">
+        {getmembers?.map((member) => (
+          <div key={member.id_member} className="member-card">
+            <div className="member-content">
+              <div className="member-info-item">
+                <strong>Usuario:</strong> {member.username}
+              </div>
+              <div className="member-info-item">
+                <strong>Email:</strong> {member.address_mail}
+              </div>
+              <div className="member-info-item">
+                <strong>Rol:</strong>
+              </div>
+              
+              <div className="member-actions-row">
+                <select
+                  value={member.id_rol}
+                  className="role-select"
+                  onChange={(e) =>
+                    handleEditRolMember(member.id_users, groupID, parseInt(e.target.value))
+                  }
+                >
+                  {roles.map((rol) => (
+                    <option key={rol.id_rol} value={rol.id_rol}>
+                      {rol.rol_name}
+                    </option>
+                  ))}
+                </select>
+                
+                <div className="action-buttons">
+                  <button
+                    className="delete-icon-btn"
                     onClick={() => handleDeleteMember(member.id_users, groupID)}
+                    title="Eliminar miembro"
                   >
-                    Eliminar
+                    <MdDeleteForever />
                   </button>
-                </li>
-              </ul>
+                </div>
+              </div>
             </div>
-          ))}
-          {toast && (
-            <Toast
-              message={toast.message}
-              type={toast.type}
-              onClose={() => setToast(null)}
-            />
-          )}
-        </div>
+            <div className="member-avatar">
+              {getInitials(member.username)}
+            </div>
+            
+          </div>
+        ))}
+      </div>
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
       )}
     </div>
   );
