@@ -1,5 +1,5 @@
 import axios from 'axios';
-import API from "../config/config.js";
+import { API } from "../config/config.js";
 
 export const createUser =  async (address_mail)=> {
   try{

@@ -29,9 +29,26 @@ const ProtectedRoute = ({ children }) => {
     checkAuth();
   }, [navigate]);
 
-  if (loading) return <p>Cargando...</p>;
+  if (loading) {
+    return (
+      <div className="loader-container">
+        <div className="spinner"></div>
+        <p className="loader-text">Verificando sesión...</p>
+      </div>
+    );
+  }
 
-  if (!authorized) return <h1>NO TOKEN PROVIDED, REDIRECTING TO LOGIN...</h1>;
+  if (!authorized) {
+    return (
+      <div className="auth-error-container">
+        <div className="auth-error-card">
+          <h1>Sesión no válida</h1>
+          <p>No se ha proporcionado un token de acceso o tu sesión ha expirado.</p>
+          <div className="redirect-timer">Redirigiendo al login...</div>
+        </div>
+      </div>
+    );
+  }
 
   return children;
 };

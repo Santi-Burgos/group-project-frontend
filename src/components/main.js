@@ -51,9 +51,6 @@ const Main = () => {
     fetchData();
   }, []);
 
-
-  console.log(groups);
-
   const filteredGroups = (groups.data || []).filter(group =>
     group?.group_name?.toLowerCase().includes(search.toLowerCase())
   );
@@ -83,7 +80,10 @@ const Main = () => {
         </div>
         <SearchBar onSearch={setSearch} />
         {loading ? (
-          <p>Cargando grupos...</p>
+          <div className="loader-container">
+            <div className="spinner"></div>
+            <p className="loader-text">Cargando grupos...</p>
+          </div>
         ) : (
           <>
             <GroupList groups={filteredGroups} onSelectGroup={handleSelectGroup} />

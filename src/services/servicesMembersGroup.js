@@ -1,5 +1,5 @@
 import axios from "axios";
-import API from "../config/config.js";
+import { API } from "../config/config.js";
 import getAuthHeaders from "../utils/tokenInLs.js";
 
 export const getMembers  = async(groupID)=>{
@@ -11,7 +11,6 @@ export const getMembers  = async(groupID)=>{
                 ...getAuthHeaders()
             }
         });
-        console.log('response', response)
         return response;
     }catch(error){
         if (error.response) {
