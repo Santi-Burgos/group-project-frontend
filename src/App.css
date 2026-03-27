@@ -142,6 +142,39 @@
   transform: scaleX(1);
 }
 
+.button-submit {
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.button-submit.normal {
+  background-color: #4caf50;
+  color: white;
+}
+
+.button-submit.normal:hover {
+  background-color: #45a049;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+.button-submit.delete {
+  background-color: #fee2e2;
+  color: #c0392b;
+}
+
+.button-submit.delete:hover {
+  background-color: #fecaca;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(192, 57, 43, 0.1);
+}
+
 .button-content {
   position: relative;
   z-index: 1;
@@ -184,13 +217,13 @@
   justify-content: space-between;
   border-bottom: 1px solid black;
 
-  p{
-    margin:  0px;
+  p {
+    margin: 0px;
     font-size: 26px;
   }
 }
 
-.options-conteiner{
+.options-conteiner {
   display: flex;
   gap: 5px;
 }
@@ -235,9 +268,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #f9fafb;
-  border-bottom: 1px solid #ddd;
-  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 25px;
   gap: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
@@ -264,7 +296,7 @@
 }
 
 .container-msg-room {
-  margin: 10px;
+  margin: 35px;
 }
 
 .container-user-body {
@@ -284,16 +316,16 @@
   font-weight: 700;
   color: #000;
   font-size: 1.1rem;
-  margin-top: 0; /* Align perfectly with the top edge */
+  margin-top: 0;
   white-space: nowrap;
   max-width: 120px;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.2; /* Tighter line height to match tail better */
+  line-height: 1.2;
 }
 
 .container-user-body.self .message-user {
-  display: none; /* Removed 'Tú' as requested */
+  display: none;
 }
 
 .message-body {
@@ -304,18 +336,18 @@
   word-wrap: break-word;
   color: #333;
   position: relative;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-size: 1.1rem;
   line-height: 1.5;
 }
 
 .container-user-body.self .message-body {
   background-color: #dcf8c6;
-  border-top-right-radius: 0; 
+  border-top-right-radius: 0;
 }
 
 .container-user-body.others .message-body {
-  border-top-left-radius: 0; 
+  border-top-left-radius: 0;
 }
 
 
@@ -387,31 +419,59 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 25px;
-  width: 40px;
-  height: 40px;
-  font-size: 24px;
+  width: 44px;
+  height: 44px;
+  font-size: 28px;
   padding: 0;
   border: none;
-  border-radius: 30px;
+  border-radius: 50%;
   cursor: pointer;
+  background: transparent !important;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  color: black;
 }
 
-.btn-msg-room {
-  background-color: #d6f7cf;
+.iconsShowForm::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+  z-index: 0;
 }
 
+.iconsShowForm:hover::before {
+  width: 100%;
+  height: 100%;
+}
+
+.iconsShowForm:active::before {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.iconsShowForm svg {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-msg-room,
 .btn-main {
-  background-color: white;
+  background: transparent !important;
 }
-
 
 .btn-delete {
-  background-color: rgb(250, 206, 206);
+  color: #c0392b;
 }
 
-.btn-delete:hover {
-  transform: translateY(-2px);
+.btn-delete:hover::before {
+  background: rgba(192, 57, 43, 0.1);
 }
 
 .form-create-group {
@@ -525,70 +585,56 @@ textarea {
 }
 
 
-.button-submit {
-  padding: 10px;
-  font-size: 14px;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.normal {
-  background-color: #1e90ff;
-}
-
-.normal:hover {
-  background-color: #1c86ee;
-}
-
-.delete {
-  background-color: #ea411d;
-  border-radius: 6px;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-.delete:hover {
-  background-color: #7f1903;
-}
-
 .group-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #f7f7f7;
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin-bottom: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 12px 16px;
+  margin: 6px 0px;
+  border-radius: 0px 16px 16px 0px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  width: calc(100% - 10px);
+  box-sizing: border-box;
 }
 
 .group-item:hover {
-  background-color: #e8f5e9;
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: scale(1.02) translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  border-color: #4caf50;
 }
 
 .list-group {
   display: flex;
   align-items: center;
   gap: 15px;
-  cursor: pointer;
+  flex: 1;
 }
 
 .img-listgroup {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+  width: 65px;
+  height: 65px;
+  border-radius: 50px;
   object-fit: cover;
-  border: 2px solid #4caf50;
+  border: 2px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.group-item:hover .img-listgroup {
+  transform: scale(1.05);
 }
 
 .group-name {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #333;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  font-family: var(--roboto-condensed);
 }
 
 
@@ -596,40 +642,37 @@ textarea {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 5px;
+  margin: 10px 15px;
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 20px;
+  padding: 8px 15px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.search-container:focus-within {
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-color: #4caf50;
 }
 
 .search-icon {
-  color: black;
+  font-size: 16px;
+  margin-right: 10px;
 }
 
 .search-group {
-  line-height: 28px;
-  border: 2px solid transparent;
-  border-bottom-color: black;
-  padding: .2rem 0;
+  flex: 1;
+  border: none;
   outline: none;
   background-color: transparent;
-  color: #0d0c22;
-  transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-.search-group:focus,
-search-group:hover {
-  outline: none;
-  padding: .2rem 1rem;
-  border-radius: 1rem;
-  border-color: black;
+  color: #333;
+  font-size: 14px;
+  font-family: var(--roboto-condensed);
 }
 
 .search-group::placeholder {
-  color: black;
-}
-
-.search-group:focus::placeholder {
-  opacity: 0;
-  transition: opacity .3s;
+  color: #000000;
 }
 
 .options-group {
@@ -728,7 +771,8 @@ search-group:hover {
 }
 
 .member-avatar {
-  background-color: #c2cfc2; /* Light greenish gray from image */
+  background-color: #c2cfc2;
+  /* Light greenish gray from image */
   color: #2e4d2e;
   width: 60px;
   height: 60px;
@@ -775,7 +819,7 @@ search-group:hover {
   font-size: 14px;
   color: #333;
   cursor: pointer;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .action-buttons {
@@ -783,7 +827,8 @@ search-group:hover {
   gap: 8px;
 }
 
-.edit-icon-btn, .delete-icon-btn {
+.edit-icon-btn,
+.delete-icon-btn {
   background-color: #f5f5f5;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -887,6 +932,27 @@ search-group:hover {
 .message-room,
 .member-groups {
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+}
+
+.conteiner-groups::-webkit-scrollbar,
+.message-room::-webkit-scrollbar,
+.member-groups::-webkit-scrollbar {
+  width: 6px;
+}
+
+.conteiner-groups::-webkit-scrollbar-thumb,
+.message-room::-webkit-scrollbar-thumb,
+.member-groups::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.conteiner-groups::-webkit-scrollbar-track,
+.message-room::-webkit-scrollbar-track,
+.member-groups::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .headerCreateGroup {
@@ -914,6 +980,15 @@ search-group:hover {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 15px;
+  text-align: center;
+  font-size: 12px;
+  color: #000000;
+  font-family: var(--roboto-condensed);
 }
 
 .message-room-layout {

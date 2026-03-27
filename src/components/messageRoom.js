@@ -125,11 +125,11 @@ const MessageRoom = ({ groupId, onBack }) => {
             
             <div id='options-group' className='options-group'>
               <button 
-                className='member-groups-trigger' 
+                className='member-groups-trigger iconsShowForm' 
                 onClick={() => setShowMembers(!showMembers)}
-                style={{ background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}
+                title="Ver miembros"
               >
-                <HiOutlineUsers className="context-menu-icon" />
+                <HiOutlineUsers />
               </button>
               <ContextMenu
                 listMap={[

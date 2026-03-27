@@ -65,7 +65,7 @@ const Main = () => {
 
   const handleBackToGroups = () => {
     setVisiblePanel('groups');
-    setOnSelectedGroup(null); 
+    setOnSelectedGroup(null);
   };
 
   return (
@@ -73,19 +73,24 @@ const Main = () => {
       <div className={`conteiner-groups ${visiblePanel === 'groups' ? '' : 'hidden'}`}>
 
         <div className="button-row">
-          <p> 
+          <p>
             GroupApp
           </p>
           <div className='options-conteiner'>
-          <NotificationButton />
-          <ContextMenu listMap={listMap} />
+            <NotificationButton />
+            <ContextMenu listMap={listMap} />
           </div>
         </div>
         <SearchBar onSearch={setSearch} />
         {loading ? (
           <p>Cargando grupos...</p>
         ) : (
-          <GroupList groups={filteredGroups} onSelectGroup={handleSelectGroup} />
+          <>
+            <GroupList groups={filteredGroups} onSelectGroup={handleSelectGroup} />
+            <div className="sidebar-footer">
+              v2.0
+            </div>
+          </>
         )}
       </div>
       <CreateGroup showForm={isGroupFormOpen} setShowForm={setIsGroupFormOpen} />
@@ -93,13 +98,13 @@ const Main = () => {
       <DeleteAccountButton showForm={isDeleteAccountOpen} setShowForm={setIsDeleteAccountOpen} />
       <div className={`message-room ${visiblePanel === 'messages' ? '' : 'hidden'}`}>
         {onSelectedGroup && (
-          <MessageRoom 
-          groupId={onSelectedGroup} 
-          onBack={handleBackToGroups}
+          <MessageRoom
+            groupId={onSelectedGroup}
+            onBack={handleBackToGroups}
           />
         )}
       </div>
-  </div>
+    </div>
   );
 };
 
