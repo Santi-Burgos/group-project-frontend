@@ -103,7 +103,7 @@ const Main = () => {
             onBack={handleBackToGroups}
           />
         )}
-      </div>
+      </div> 
     </div>
   );
 };
