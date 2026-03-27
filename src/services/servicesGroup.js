@@ -14,7 +14,7 @@ export const createGroup = async (groupData) => {
   }
 
   try {
-    const response = await axios.post(`${API}/creategroup`, formData, {
+    const response = await axios.post(`${API}/group/createGroup`, formData, {
       withCredentials: true, 
       headers: {
         "Content-Type": "multipart/form-data",

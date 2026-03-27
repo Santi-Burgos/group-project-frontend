@@ -45,6 +45,9 @@ const Logger = () =>{
     const handleLoggin = async () => {
         try {
             const response = await loggearUser(newUserLogin); 
+
+          console.log(response)
+
             if (response.success === true){
                 setToast({ message: '✅ Logueado con éxito.', type: 'success' });
                 setNewUserLogin({ address_mail:'', password:''});

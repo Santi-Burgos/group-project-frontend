@@ -4,7 +4,7 @@ import getAuthHeaders from '../utils/tokenInLs.js';
 
 export const userQuitGroup = async (groupID) =>{
     try{
-        const response = await axios.delete(`${API}/main`, {
+        const response = await axios.delete(`${API}/group/exitGroup`, {
             data: {groupID}, 
             withCredentials: true,
             headers: {

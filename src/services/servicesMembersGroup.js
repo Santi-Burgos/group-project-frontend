@@ -4,20 +4,20 @@ import getAuthHeaders from "../utils/tokenInLs.js";
 
 export const getMembers  = async(groupID)=>{
     try{
-        const response = await axios.get(`${API}/group/members?groupID=${groupID}`,
+        const response = await axios.get(`${API}/group/members/getMembers?groupID=${groupID}`,
           {
             withCredentials: true,
             headers: {
                 ...getAuthHeaders()
             }
         });
+        console.log('response', response)
         return response;
     }catch(error){
         if (error.response) {
             console.error('Error desde el backend:', error.response.data.message);
             console.error('Detalles:', error.response.data.details);
         } else if (error.request) {
-           
             console.error('No se recibió respuesta del servidor:', error.request);
         } else {
             console.error('Error al configurar la solicitud:', error.message);
@@ -27,7 +27,7 @@ export const getMembers  = async(groupID)=>{
 
 export const deleteMember = async(groupID, userID) =>{
     try{
-        const response = await axios.delete(`${API}/group/members`, {
+        const response = await axios.delete(`${API}/group/members/deleteMember`, {
             withCredentials: true,
             headers: {
                 ...getAuthHeaders()
@@ -55,7 +55,7 @@ export const deleteMember = async(groupID, userID) =>{
 export const editRolMember = async(userID, groupID, id_rol) =>{
     try{
         const response = await axios.put(
-            `${API}/group/members`,
+            `${API}/group/members/editRole`,
             {
               groupID,
               editMember: userID,
