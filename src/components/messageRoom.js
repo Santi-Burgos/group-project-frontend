@@ -6,7 +6,7 @@ import ContextMenu from './contextMenu.js';
 import getAuthHeaders from '../utils/tokenInLs.js';
 import { getUser } from '../services/servicesProfile.js';
 import MemberGroups from './memberGroups.js';
-import { IoIosArrowBack, IoMdSend, IoMdClose } from "react-icons/io";
+import { IoIosArrowBack, IoMdSend } from "react-icons/io";
 import { io } from 'socket.io-client';
 import { BsEnvelopePlus } from "react-icons/bs";
 import { MdExitToApp } from "react-icons/md";
