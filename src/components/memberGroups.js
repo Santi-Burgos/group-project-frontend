@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import { getMembers, deleteMember, editRolMember } from "../services/servicesMembersGroup";
 import { roles } from "../utils/roles";
 import { Toast } from "./toast.js";
-import { FaUserFriends } from "react-icons/fa";
-import { MdDeleteForever, MdEdit } from "react-icons/md";
-import { IoMdClose, IoMdCloseCircle } from "react-icons/io";
+import { MdDeleteForever,  } from "react-icons/md";
+import { IoMdClose } from "react-icons/io";
 
 const MemberGroups = ({ groupID, onClose }) => {
   const getInitials = (name) => {
