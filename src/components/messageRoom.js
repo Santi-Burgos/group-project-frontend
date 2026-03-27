@@ -11,7 +11,7 @@ import { io } from 'socket.io-client';
 import { BsEnvelopePlus } from "react-icons/bs";
 import { MdExitToApp } from "react-icons/md";
 import { HiOutlineUsers } from "react-icons/hi2";
-import API from '../config/config.js';
+import { SOCKETAPI } from '../config/config.js';
 
 const MessageRoom = ({ groupId, onBack }) => {
   const [messages, setMessages] = useState([]);
@@ -23,7 +23,6 @@ const MessageRoom = ({ groupId, onBack }) => {
   const [showMembers, setShowMembers] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
   const socketRef = useRef(null);
-
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 600);
     window.addEventListener('resize', handleResize);
@@ -43,11 +42,11 @@ const MessageRoom = ({ groupId, onBack }) => {
     };
     fetchUser();
   }, []);
-
+  console.log('SOCKETAPI', SOCKETAPI)
   useEffect(() => {
     if (!groupId) return;
 
-    const socket = io(API, {
+    const socket = io(SOCKETAPI, {
       withCredentials: true,
       transports: ['websocket', 'polling'],
       extraHeaders: getAuthHeaders(),

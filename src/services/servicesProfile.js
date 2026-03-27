@@ -1,5 +1,5 @@
 import axios  from 'axios';
-import API from "../config/config.js";
+import { API } from "../config/config.js";
 import getAuthHeaders from '../utils/tokenInLs.js';
 
 export const getUser = async()=> {
