@@ -11,6 +11,7 @@ import { io } from 'socket.io-client';
 import { BsEnvelopePlus } from "react-icons/bs";
 import { MdExitToApp } from "react-icons/md";
 import { HiOutlineUsers } from "react-icons/hi2";
+import API from '../config/config.js';
 
 const MessageRoom = ({ groupId, onBack }) => {
   const [messages, setMessages] = useState([]);
@@ -46,7 +47,7 @@ const MessageRoom = ({ groupId, onBack }) => {
   useEffect(() => {
     if (!groupId) return;
 
-    const socket = io('http://localhost:3000/', {
+    const socket = io(API, {
       withCredentials: true,
       transports: ['websocket', 'polling'],
       extraHeaders: getAuthHeaders(),
