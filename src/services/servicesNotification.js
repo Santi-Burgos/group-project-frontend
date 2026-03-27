@@ -10,7 +10,6 @@ export const notification = async () => {
         ...getAuthHeaders()
       }
     });
-    console.log('Datos recibidos:', response.data)
     return response.data
   } catch (error) {
     if (error.response) {

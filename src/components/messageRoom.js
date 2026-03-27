@@ -20,7 +20,14 @@ const MessageRoom = ({ groupId, onBack }) => {
   const [isQuitModalOpen, setIsQuitModalOpen] = useState(false);
   const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
   const [showMembers, setShowMembers] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
   const socketRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 600);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -38,7 +45,7 @@ const MessageRoom = ({ groupId, onBack }) => {
 
   useEffect(() => {
     if (!groupId) return;
-    
+
     const socket = io('http://localhost:3000/', {
       withCredentials: true,
       transports: ['websocket', 'polling'],
@@ -56,8 +63,8 @@ const MessageRoom = ({ groupId, onBack }) => {
           setGroupData({
             name: response[0].group_name,
             image: response[0].url_img
-          }); 
-          setMessages(response); 
+          });
+          setMessages(response);
         } else {
           setGroupData(null);
           setMessages([]);
@@ -75,7 +82,7 @@ const MessageRoom = ({ groupId, onBack }) => {
     });
 
     socket.on("receiveMessage", (updatedMessages) => {
-      setMessages(updatedMessages); 
+      setMessages(updatedMessages);
     });
 
     return () => {
@@ -86,11 +93,11 @@ const MessageRoom = ({ groupId, onBack }) => {
   }, [groupId]);
 
   const handleSendMessage = (e) => {
-    if (e) e.preventDefault(); 
+    if (e) e.preventDefault();
     if (msg_body.trim() === "" || !socketRef.current) return;
-    socketRef.current.emit("sendMessage", { 
-      groupID: groupId, 
-      msg_body: msg_body.trim() 
+    socketRef.current.emit("sendMessage", {
+      groupID: groupId,
+      msg_body: msg_body.trim()
     });
     setNewBodyMessage("");
   };
@@ -100,17 +107,15 @@ const MessageRoom = ({ groupId, onBack }) => {
       <div className='message-room-layout'>
         <div className={`chat-main-area ${showMembers ? 'mobile-hidden' : ''}`}>
           <div className="message-room-header">
-            <div>
-              <div className='button-to-back'>
-                <button
-                  className="iconsShowForm btn-msg-room mobile-only"
-                  onClick={onBack}
-                >
-                  <IoIosArrowBack/>
-                </button>
-              </div>
+            <div className='header-left-section'>
+              <button
+                className="iconsShowForm btn-msg-room mobile-only"
+                onClick={onBack}
+              >
+                <IoIosArrowBack />
+              </button>
               <div className="message-room-title">
-                {groupData?.image&& (
+                {groupData?.image && (
                   <img
                     src={groupData.image}
                     alt={`img-${groupData.name}`}
@@ -122,48 +127,55 @@ const MessageRoom = ({ groupId, onBack }) => {
                 </h2>
               </div>
             </div>
-            
+
             <div id='options-group' className='options-group'>
-              <button 
-                className='member-groups-trigger iconsShowForm' 
-                onClick={() => setShowMembers(!showMembers)}
-                title="Ver miembros"
-              >
-                <HiOutlineUsers />
-              </button>
+              {!isMobile && (
+                <button
+                  className='member-groups-trigger iconsShowForm'
+                  onClick={() => setShowMembers(!showMembers)}
+                  title="Ver miembros"
+                >
+                  <HiOutlineUsers />
+                </button>
+              )}
               <ContextMenu
                 listMap={[
-                  { 
-                    name: "Enviar invitación", 
+                  ...(isMobile ? [{
+                    name: "Ver miembros",
+                    handle: () => setShowMembers(true),
+                    icon: HiOutlineUsers
+                  }] : []),
+                  {
+                    name: "Enviar invitación",
                     handle: () => setIsInviteModalOpen(true),
                     icon: BsEnvelopePlus
                   },
-                  { 
-                    name: "Salir del grupo", 
+                  {
+                    name: "Salir del grupo",
                     handle: () => setIsQuitModalOpen(true),
                     icon: MdExitToApp
                   }
                 ]}
               />
             </div>
-            
+
           </div>
           <div className='container-msg-room'>
-                {messages?.length !== 0 && messages[0].id_msg ? (
-                  messages?.map((msg) => {
-                    const isSelf = msg.username === currentUser;
-                    return (
-                      <div className={`container-user-body ${isSelf ? 'self' : 'others'}`} key={msg.id_msg}>
-                        <div className='message-user'>{isSelf ? 'Tú' : msg.username}</div>
-                        <div className='message-body'>{msg.msg_body}</div>
-                      </div>
-                    );
-                  })        
-                ) : (
-                  <div className='notMessageContainer'>
-                    <p>No hay mensajes disponibles.</p>
+            {messages?.length !== 0 && messages[0].id_msg ? (
+              messages?.map((msg) => {
+                const isSelf = msg.username === currentUser;
+                return (
+                  <div className={`container-user-body ${isSelf ? 'self' : 'others'}`} key={msg.id_msg}>
+                    <div className='message-user'>{isSelf ? 'Tú' : msg.username}</div>
+                    <div className='message-body'>{msg.msg_body}</div>
                   </div>
-                )}
+                );
+              })
+            ) : (
+              <div className='notMessageContainer'>
+                <p>No hay mensajes disponibles.</p>
+              </div>
+            )}
           </div>
           <div className='send-form-message'>
             <input
@@ -177,12 +189,12 @@ const MessageRoom = ({ groupId, onBack }) => {
             </button>
           </div>
         </div>
-        
+
         {showMembers && (
           <div className='members-sidebar'>
-            <MemberGroups 
-              groupID={groupId} 
-              onClose={() => setShowMembers(false)} 
+            <MemberGroups
+              groupID={groupId}
+              onClose={() => setShowMembers(false)}
             />
           </div>
         )}

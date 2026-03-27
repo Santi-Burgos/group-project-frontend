@@ -2,26 +2,24 @@ import axios from 'axios';
 import API from "../config/config.js";
 
 export const createUser =  async (address_mail)=> {
-    try{
-        console.log(`${API}/create`);
-        const response = await axios.post(`${API}/user/create`, address_mail)
-        return response.data;
-    }catch(error){
-        console.log('Error al crear el usuario', error);
-        throw error
-    }
+  try{
+    const response = await axios.post(`${API}/user/create`, address_mail)
+    return response.data;
+  }catch(error){
+    console.log('Error al crear el usuario', error);
+    throw error
+  }
 }
+
 export const loggearUser = async (address_mail) =>{
-    try{
-        const response = await axios.post(`${API}/auth/login`, address_mail,
-            {
-                withCredentials: true
-            })
-            console.log(response)
-            console.log(response.data)
-        localStorage.setItem('access_token', response.data.access_token);
-        return response.data
-    }catch(error){
-        console.log('Error al loggear el usuario', error.response?.data || error.message);
-    }
+  try{
+    const response = await axios.post(`${API}/auth/login`, address_mail,
+      {
+        withCredentials: true
+      })
+      localStorage.setItem('access_token', response.data.access_token);
+      return response.data
+  }catch(error){
+    console.log('Error al loggear el usuario', error.response?.data || error.message);
+  }
 } 
