@@ -182,6 +182,7 @@ const MessageRoom = ({ groupId, onBack }) => {
               className='input-message'
               type="text"
               value={msg_body}
+              maxLength={255}
               onChange={(e) => setNewBodyMessage(e.target.value)}
             />
             <button className='button-msg-send' onClick={handleSendMessage}>
