@@ -60,32 +60,28 @@ const Logger = () =>{
             {(!view) ? 
             <div className='container'> 
                 <div className='contenedor-login'>
-                    <h1>Chatgrupal</h1>
-                    <button onClick={changeView} className='button-login'>
-                        <span>
-                            Ya tienes cuenta?
-                        </span>
-                    </button>
+                    <div className="header-branding">
+                        <h1>Chatgrupal</h1>
+                        <div className="separator"></div>
+                        <h2>Registrarse</h2>
+                    </div>
                     <div className='card-login'>
-                            <div className='login-title'>
-                                <h2>Registrarse</h2>
-                            </div>
                             <input  
                                 placeholder='Email'
-                                type ="Text"
+                                type ="text"
                                 value={newUser.address_mail}
                                 onChange={(e) => setNewUser({ ...newUser, address_mail: e.target.value })}
                             />
                             <input  
                                 placeholder='Username'
-                                type ="Text"
+                                type ="text"
                                 value={newUser.username}
                                 onChange={(e) => setNewUser({ ...newUser, username: e.target.value })}
                             />
                             <span className='clarification'>El usuario debe tener al menos 5 caracteres</span>
                             <input 
                                 placeholder='Password'
-                                type='Password'
+                                type='password'
                                 value ={newUser.password}
                                 onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
                             />
@@ -93,35 +89,37 @@ const Logger = () =>{
                                 <span className='button-content'>Crear Usuario <FaArrowRightLong/></span>
                             </button>
                     </div>
+                    <button onClick={changeView} className='button-login'>
+                        <span>Ya tienes cuenta?</span>
+                    </button>
                 </div>
             </div> : 
             <div className='container'>
                 <div className='contenedor-login'>
-                    <h1>Chatgrupal</h1>
-                    <button onClick={changeView} className='button-login'>
-                        <span>
-                            No tienes cuenta?
-                        </span>
-                    </button>
+                    <div className="header-branding">
+                        <h1>Chatgrupal</h1>
+                        <div className="separator"></div>
+                        <h2>Login</h2>
+                    </div>
                     <div className='card-login'>
-                        <div className='login-title'>
-                            <h2>Login</h2>
-                        </div>
                         <input
                             placeholder='Email'
-                            type ="Text"
+                            type ="text"
                             value={newUserLogin.address_mail}
                             onChange={(e) => setNewUserLogin({ ...newUserLogin, address_mail: e.target.value })}
                         />
                         <input
                             placeholder='Password'
-                            type ="Password"
+                            type ="password"
                             value={newUserLogin.password}
                             onChange={(e) => setNewUserLogin({ ...newUserLogin, password: e.target.value })}
                         />
                         <button className='button' onClick={handleLoggin}> 
                             <span className='button-content'>Iniciar Sesion <FaArrowRightLong/></span></button>
                     </div>
+                    <button onClick={changeView} className='button-login'>
+                        <span>No tienes cuenta?</span>
+                    </button>
                 </div>
             </div> 
             }

@@ -71,7 +71,7 @@ const Main = () => {
 
         <div className="button-row">
           <p>
-            GroupApp
+            Chatgrupal
           </p>
           <div className='options-conteiner'>
             <NotificationButton />
